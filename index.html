@@ -9,75 +9,61 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 <style>
-body {
-    margin: 0;
-    background: #0f0f0f;
+body{
+    margin:0;
+    background:#0d0d0d;
+    color:white;
     font-family: Georgia, serif;
-    color: white;
-    text-align: center;
+    text-align:center;
 }
 
 /* INTRO */
-.intro {
-    padding: 60px 20px;
-}
-.intro h1 {
-    font-size: 32px;
-}
-.intro p {
-    max-width: 500px;
-    margin: auto;
-    opacity: 0.8;
+#intro{
+    padding:50px 20px;
 }
 
-/* BOTÓN */
-.btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background: white;
-    color: black;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.btn{
+    padding:12px 20px;
+    background:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 /* LIBRO */
-#libro {
-    display: none;
-    width: 90%;
-    max-width: 900px;
-    height: 600px;
-    margin: 40px auto;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+#libro{
+    display:none;
+    margin:auto;
+    box-shadow:0 30px 80px rgba(0,0,0,0.7);
 }
 
-.pagina {
-    background: white;
+.pagina{
+    background:white;
 }
-.pagina img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+
+.pagina img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }
 
 /* CONTROLES */
-.controls {
-    display: none;
-    margin-bottom: 20px;
+.controls{
+    display:none;
+    margin:15px;
 }
-button {
-    padding: 10px 15px;
-    border: none;
-    background: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 5px;
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
 }
 
 /* COMENTARIOS */
-.comentarios {
-    margin-top: 40px;
-    padding: 20px;
+#comentarios{
+    margin-top:50px;
+    padding:20px;
 }
 </style>
 </head>
@@ -85,17 +71,16 @@ button {
 <body>
 
 <!-- INTRO -->
-<div class="intro" id="intro">
+<div id="intro">
     <h1>18 Fragmentos de un Corazón Herido</h1>
-    <p>
-        “Si llegaste hasta aquí… probablemente también aprendiste a sonreír mientras te rompías por dentro.”
-    </p>
+    <p>Si llegaste hasta aquí… no estás solo.</p>
     <button class="btn" onclick="iniciar()">Comenzar lectura</button>
 </div>
 
 <!-- LIBRO -->
 <div id="libro">
 
+<!-- PÁGINAS -->
 <div class="pagina"><img src="libro_page-0001.jpg"></div>
 <div class="pagina"><img src="libro_page-0002.jpg"></div>
 <div class="pagina"><img src="libro_page-0003.jpg"></div>
@@ -137,44 +122,49 @@ button {
 <audio id="sonido" src="https://www.soundjay.com/misc/sounds/page-flip-01a.mp3"></audio>
 
 <!-- COMENTARIOS -->
-<div class="comentarios">
-    <h2>💬 Opiniones de lectores</h2>
+<div id="comentarios">
+    <h2>💬 Opiniones</h2>
     <div id="disqus_thread"></div>
 </div>
 
 <script>
 function iniciar(){
-    document.getElementById("intro").style.display = "none";
-    document.getElementById("libro").style.display = "block";
-    document.getElementById("controls").style.display = "block";
 
-    $("#libro").turn({
-        width: 900,
-        height: 600,
-        autoCenter: true,
-        gradients: true
-    });
+    document.getElementById("intro").style.display="none";
+    document.getElementById("libro").style.display="block";
+    document.getElementById("controls").style.display="block";
 
-    setTimeout(function(){
-        $("#libro").turn("next");
-    }, 1500);
+    let ancho = window.innerWidth;
+
+    // 📱 MODO CELULAR
+    if(ancho < 700){
+        $("#libro").turn({
+            width: ancho * 0.95,
+            height: 500,
+            display: "single",
+            autoCenter:true
+        });
+    }
+    // 💻 MODO COMPUTADORA
+    else{
+        $("#libro").turn({
+            width: 900,
+            height: 600,
+            autoCenter:true
+        });
+    }
 
     $("#libro").bind("turning", function(){
         document.getElementById("sonido").play();
     });
 }
 
-/* DISQUS REAL */
-var disqus_config = function () {
-this.page.url = window.location.href;
-this.page.identifier = "libro";
-};
-
+/* DISQUS */
 (function() {
 var d = document, s = d.createElement('script');
 s.src = 'https://mis-libros-1.disqus.com/embed.js';
 s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
+(d.body).appendChild(s);
 })();
 </script>
 
