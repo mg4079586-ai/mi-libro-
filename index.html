@@ -9,35 +9,76 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
 <style>
+/* ===== BODY (FONDO) ===== */
 body {
     margin: 0;
     font-family: 'Georgia', serif;
     color: white;
     text-align: center;
 
-    background-image: url('fondo.jpg');
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('fondo.jpg');
     background-size: cover;
     background-position: center;
-}
-/* INTRO */
-#intro{
-    padding:50px 20px;
-}
-h1 {
-    font-size: 40px;
-    text-shadow: 0px 0px 15px rgba(0,0,0,0.8);
+    background-repeat: no-repeat;
 }
 
+
+/* ===== INTRO (PORTADA) ===== */
+#intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    animation: fadeIn 2s ease;
+}
+
+
+/* ===== TITULO ===== */
+h1 {
+    font-size: 42px;
+    text-shadow: 0px 0px 20px rgba(0,0,0,0.9);
+    margin-bottom: 20px;
+}
+
+
+/* ===== TEXTO ===== */
 p {
     font-size: 18px;
     opacity: 0.9;
+    margin-bottom: 30px;
 }
-.btn{
-    padding:12px 20px;
-    background:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
+
+
+/* ===== BOTÓN ===== */
+.btn {
+    padding: 14px 30px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* LIBRO */
